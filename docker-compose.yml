@@ -1,0 +1,17 @@
+services:
+  fastapi_app:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mosquitto
+    environment:
+      - MQTT_HOST=mosquitto
+
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+
